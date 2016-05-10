@@ -1,0 +1,545 @@
+fileFormatVersion: 2
+guid: 491b8d1fb0865844ca103c3e5cc6d092
+timeCreated: 1461619201
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bone001
+    100002: Bone002
+    100004: Bone003
+    100006: Bone004
+    100008: Bone005
+    100010: Bone006
+    100012: Bone006(mirrored)
+    100014: Bone007
+    100016: Bone007(mirrored)
+    100018: Bone008
+    100020: Bone008(mirrored)
+    100022: Bone009
+    100024: Bone009(mirrored)
+    100026: Bone010
+    100028: Bone010(mirrored)
+    100030: Bone011
+    100032: Bone011(mirrored)
+    100034: Bone012
+    100036: Bone012(mirrored)
+    100038: Bone013
+    100040: Bone013(mirrored)
+    100042: Bone014
+    100044: Bone014(mirrored)
+    100046: Bone015
+    100048: Bone015(mirrored)
+    100050: Bone016
+    100052: Bone016(mirrored)
+    100054: Bone017
+    100056: Bone017(mirrored)
+    100058: Bone018
+    100060: Bone018(mirrored)
+    100062: Bone019
+    100064: Bone019(mirrored)
+    100066: Bone020
+    100068: Bone020(mirrored)
+    100070: Bone021
+    100072: Bone021(mirrored)
+    100074: Bone022
+    100076: Bone022(mirrored)
+    100078: Bone023
+    100080: Bone023(mirrored)
+    100082: Bone024
+    100084: Bone024(mirrored)
+    100086: Bone025
+    100088: Bone025(mirrored)
+    100090: Bone026
+    100092: Bone026(mirrored)
+    100094: Bone027
+    100096: Bone027(mirrored)
+    100098: Bone028
+    100100: Bone028(mirrored)
+    100102: Bone029
+    100104: Bone029(mirrored)
+    100106: Bone030
+    100108: Bone030(mirrored)
+    100110: Bone031
+    100112: Bone031(mirrored)
+    100114: Bone032
+    100116: Bone032(mirrored)
+    100118: Bone033
+    100120: Bone033(mirrored)
+    100122: Circle001
+    100124: Circle002
+    100126: Circle003
+    100128: Circle004
+    100130: Circle005
+    100132: Circle006
+    100134: Circle007
+    100136: Circle008
+    100138: Circle009
+    100140: Circle010
+    100142: Circle011
+    100144: Circle012
+    100146: Circle013
+    100148: Circle014
+    100150: Circle015
+    100152: Circle016
+    100154: Circle017
+    100156: Circle018
+    100158: Circle019
+    100160: Circle020
+    100162: Circle021
+    100164: Circle022
+    100166: Circle023
+    100168: Circle024
+    100170: Circle025
+    100172: Circle026
+    100174: Circle027
+    100176: Circle028
+    100178: Circle029
+    100180: Circle030
+    100182: Circle031
+    100184: Circle032
+    100186: Circle033
+    100188: Circle034
+    100190: Circle035
+    100192: Circle036
+    100194: Circle037
+    100196: Circle038
+    100198: Circle039
+    100200: Circle040
+    100202: Circle043
+    100204: Circle044
+    100206: Circle045
+    100208: Eye
+    100210: Eye001
+    100212: Octopus
+    100214: Rectangle001
+    100216: //RootNode
+    400000: Bone001
+    400002: Bone002
+    400004: Bone003
+    400006: Bone004
+    400008: Bone005
+    400010: Bone006
+    400012: Bone006(mirrored)
+    400014: Bone007
+    400016: Bone007(mirrored)
+    400018: Bone008
+    400020: Bone008(mirrored)
+    400022: Bone009
+    400024: Bone009(mirrored)
+    400026: Bone010
+    400028: Bone010(mirrored)
+    400030: Bone011
+    400032: Bone011(mirrored)
+    400034: Bone012
+    400036: Bone012(mirrored)
+    400038: Bone013
+    400040: Bone013(mirrored)
+    400042: Bone014
+    400044: Bone014(mirrored)
+    400046: Bone015
+    400048: Bone015(mirrored)
+    400050: Bone016
+    400052: Bone016(mirrored)
+    400054: Bone017
+    400056: Bone017(mirrored)
+    400058: Bone018
+    400060: Bone018(mirrored)
+    400062: Bone019
+    400064: Bone019(mirrored)
+    400066: Bone020
+    400068: Bone020(mirrored)
+    400070: Bone021
+    400072: Bone021(mirrored)
+    400074: Bone022
+    400076: Bone022(mirrored)
+    400078: Bone023
+    400080: Bone023(mirrored)
+    400082: Bone024
+    400084: Bone024(mirrored)
+    400086: Bone025
+    400088: Bone025(mirrored)
+    400090: Bone026
+    400092: Bone026(mirrored)
+    400094: Bone027
+    400096: Bone027(mirrored)
+    400098: Bone028
+    400100: Bone028(mirrored)
+    400102: Bone029
+    400104: Bone029(mirrored)
+    400106: Bone030
+    400108: Bone030(mirrored)
+    400110: Bone031
+    400112: Bone031(mirrored)
+    400114: Bone032
+    400116: Bone032(mirrored)
+    400118: Bone033
+    400120: Bone033(mirrored)
+    400122: Circle001
+    400124: Circle002
+    400126: Circle003
+    400128: Circle004
+    400130: Circle005
+    400132: Circle006
+    400134: Circle007
+    400136: Circle008
+    400138: Circle009
+    400140: Circle010
+    400142: Circle011
+    400144: Circle012
+    400146: Circle013
+    400148: Circle014
+    400150: Circle015
+    400152: Circle016
+    400154: Circle017
+    400156: Circle018
+    400158: Circle019
+    400160: Circle020
+    400162: Circle021
+    400164: Circle022
+    400166: Circle023
+    400168: Circle024
+    400170: Circle025
+    400172: Circle026
+    400174: Circle027
+    400176: Circle028
+    400178: Circle029
+    400180: Circle030
+    400182: Circle031
+    400184: Circle032
+    400186: Circle033
+    400188: Circle034
+    400190: Circle035
+    400192: Circle036
+    400194: Circle037
+    400196: Circle038
+    400198: Circle039
+    400200: Circle040
+    400202: Circle043
+    400204: Circle044
+    400206: Circle045
+    400208: Eye
+    400210: Eye001
+    400212: Octopus
+    400214: Rectangle001
+    400216: //RootNode
+    2300000: Eye
+    2300002: Eye001
+    3300000: Eye
+    3300002: Eye001
+    4300000: Eye
+    4300002: Eye001
+    4300004: Octopus
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Octopus
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 94
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone006
+        weight: 1
+      - path: Bone001/Bone002/Bone006/Bone007
+        weight: 1
+      - path: Bone001/Bone002/Bone006/Bone007/Circle005
+        weight: 1
+      - path: Bone001/Bone002/Bone006/Bone007/Circle005/Bone008
+        weight: 1
+      - path: Bone001/Bone002/Bone006/Bone007/Circle005/Bone008/Circle004
+        weight: 1
+      - path: Bone001/Bone002/Bone006/Bone007/Circle005/Bone008/Circle004/Bone009
+        weight: 1
+      - path: Bone001/Bone002/Bone006/Bone007/Circle005/Bone008/Circle004/Bone009/Circle003
+        weight: 1
+      - path: Bone001/Bone002/Bone006/Bone007/Circle005/Bone008/Circle004/Bone009/Circle003/Bone010
+        weight: 1
+      - path: Bone001/Bone002/Bone006/Bone007/Circle005/Bone008/Circle004/Bone009/Circle003/Bone010/Circle002
+        weight: 1
+      - path: Bone001/Bone002/Bone006/Bone007/Circle005/Bone008/Circle004/Bone009/Circle003/Bone010/Circle002/Bone011
+        weight: 1
+      - path: Bone001/Bone002/Bone006/Bone007/Circle005/Bone008/Circle004/Bone009/Circle003/Bone010/Circle002/Bone011/Circle001
+        weight: 1
+      - path: Bone001/Bone002/Bone006/Bone007/Circle005/Bone008/Circle004/Bone009/Circle003/Bone010/Circle002/Bone011/Circle001/Bone012
+        weight: 1
+      - path: Bone001/Bone002/Bone006(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone006(mirrored)/Bone007(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone006(mirrored)/Bone007(mirrored)/Circle010
+        weight: 1
+      - path: Bone001/Bone002/Bone006(mirrored)/Bone007(mirrored)/Circle010/Bone008(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone006(mirrored)/Bone007(mirrored)/Circle010/Bone008(mirrored)/Circle009
+        weight: 1
+      - path: Bone001/Bone002/Bone006(mirrored)/Bone007(mirrored)/Circle010/Bone008(mirrored)/Circle009/Bone009(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone006(mirrored)/Bone007(mirrored)/Circle010/Bone008(mirrored)/Circle009/Bone009(mirrored)/Circle008
+        weight: 1
+      - path: Bone001/Bone002/Bone006(mirrored)/Bone007(mirrored)/Circle010/Bone008(mirrored)/Circle009/Bone009(mirrored)/Circle008/Bone010(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone006(mirrored)/Bone007(mirrored)/Circle010/Bone008(mirrored)/Circle009/Bone009(mirrored)/Circle008/Bone010(mirrored)/Circle007
+        weight: 1
+      - path: Bone001/Bone002/Bone006(mirrored)/Bone007(mirrored)/Circle010/Bone008(mirrored)/Circle009/Bone009(mirrored)/Circle008/Bone010(mirrored)/Circle007/Bone011(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone006(mirrored)/Bone007(mirrored)/Circle010/Bone008(mirrored)/Circle009/Bone009(mirrored)/Circle008/Bone010(mirrored)/Circle007/Bone011(mirrored)/Circle006
+        weight: 1
+      - path: Bone001/Bone002/Bone006(mirrored)/Bone007(mirrored)/Circle010/Bone008(mirrored)/Circle009/Bone009(mirrored)/Circle008/Bone010(mirrored)/Circle007/Bone011(mirrored)/Circle006/Bone012(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone013
+        weight: 1
+      - path: Bone001/Bone002/Bone013/Bone014
+        weight: 1
+      - path: Bone001/Bone002/Bone013/Bone014/Circle016
+        weight: 1
+      - path: Bone001/Bone002/Bone013/Bone014/Circle016/Bone015
+        weight: 1
+      - path: Bone001/Bone002/Bone013/Bone014/Circle016/Bone015/Circle017
+        weight: 1
+      - path: Bone001/Bone002/Bone013/Bone014/Circle016/Bone015/Circle017/Bone016
+        weight: 1
+      - path: Bone001/Bone002/Bone013/Bone014/Circle016/Bone015/Circle017/Bone016/Circle018
+        weight: 1
+      - path: Bone001/Bone002/Bone013/Bone014/Circle016/Bone015/Circle017/Bone016/Circle018/Bone017
+        weight: 1
+      - path: Bone001/Bone002/Bone013/Bone014/Circle016/Bone015/Circle017/Bone016/Circle018/Bone017/Circle019
+        weight: 1
+      - path: Bone001/Bone002/Bone013/Bone014/Circle016/Bone015/Circle017/Bone016/Circle018/Bone017/Circle019/Bone018
+        weight: 1
+      - path: Bone001/Bone002/Bone013/Bone014/Circle016/Bone015/Circle017/Bone016/Circle018/Bone017/Circle019/Bone018/Circle020
+        weight: 1
+      - path: Bone001/Bone002/Bone013/Bone014/Circle016/Bone015/Circle017/Bone016/Circle018/Bone017/Circle019/Bone018/Circle020/Bone019
+        weight: 1
+      - path: Bone001/Bone002/Bone013(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone013(mirrored)/Bone014(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone013(mirrored)/Bone014(mirrored)/Circle015
+        weight: 1
+      - path: Bone001/Bone002/Bone013(mirrored)/Bone014(mirrored)/Circle015/Bone015(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone013(mirrored)/Bone014(mirrored)/Circle015/Bone015(mirrored)/Circle014
+        weight: 1
+      - path: Bone001/Bone002/Bone013(mirrored)/Bone014(mirrored)/Circle015/Bone015(mirrored)/Circle014/Bone016(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone013(mirrored)/Bone014(mirrored)/Circle015/Bone015(mirrored)/Circle014/Bone016(mirrored)/Circle013
+        weight: 1
+      - path: Bone001/Bone002/Bone013(mirrored)/Bone014(mirrored)/Circle015/Bone015(mirrored)/Circle014/Bone016(mirrored)/Circle013/Bone017(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone013(mirrored)/Bone014(mirrored)/Circle015/Bone015(mirrored)/Circle014/Bone016(mirrored)/Circle013/Bone017(mirrored)/Circle012
+        weight: 1
+      - path: Bone001/Bone002/Bone013(mirrored)/Bone014(mirrored)/Circle015/Bone015(mirrored)/Circle014/Bone016(mirrored)/Circle013/Bone017(mirrored)/Circle012/Bone018(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone013(mirrored)/Bone014(mirrored)/Circle015/Bone015(mirrored)/Circle014/Bone016(mirrored)/Circle013/Bone017(mirrored)/Circle012/Bone018(mirrored)/Circle011
+        weight: 1
+      - path: Bone001/Bone002/Bone013(mirrored)/Bone014(mirrored)/Circle015/Bone015(mirrored)/Circle014/Bone016(mirrored)/Circle013/Bone017(mirrored)/Circle012/Bone018(mirrored)/Circle011/Bone019(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone020
+        weight: 1
+      - path: Bone001/Bone002/Bone020/Bone021
+        weight: 1
+      - path: Bone001/Bone002/Bone020/Bone021/Circle026
+        weight: 1
+      - path: Bone001/Bone002/Bone020/Bone021/Circle026/Bone022
+        weight: 1
+      - path: Bone001/Bone002/Bone020/Bone021/Circle026/Bone022/Circle027
+        weight: 1
+      - path: Bone001/Bone002/Bone020/Bone021/Circle026/Bone022/Circle027/Bone023
+        weight: 1
+      - path: Bone001/Bone002/Bone020/Bone021/Circle026/Bone022/Circle027/Bone023/Circle028
+        weight: 1
+      - path: Bone001/Bone002/Bone020/Bone021/Circle026/Bone022/Circle027/Bone023/Circle028/Bone024
+        weight: 1
+      - path: Bone001/Bone002/Bone020/Bone021/Circle026/Bone022/Circle027/Bone023/Circle028/Bone024/Circle029
+        weight: 1
+      - path: Bone001/Bone002/Bone020/Bone021/Circle026/Bone022/Circle027/Bone023/Circle028/Bone024/Circle029/Bone025
+        weight: 1
+      - path: Bone001/Bone002/Bone020/Bone021/Circle026/Bone022/Circle027/Bone023/Circle028/Bone024/Circle029/Bone025/Circle030
+        weight: 1
+      - path: Bone001/Bone002/Bone020/Bone021/Circle026/Bone022/Circle027/Bone023/Circle028/Bone024/Circle029/Bone025/Circle030/Bone026
+        weight: 1
+      - path: Bone001/Bone002/Bone020(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone020(mirrored)/Bone021(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone020(mirrored)/Bone021(mirrored)/Circle021
+        weight: 1
+      - path: Bone001/Bone002/Bone020(mirrored)/Bone021(mirrored)/Circle021/Bone022(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone020(mirrored)/Bone021(mirrored)/Circle021/Bone022(mirrored)/Circle022
+        weight: 1
+      - path: Bone001/Bone002/Bone020(mirrored)/Bone021(mirrored)/Circle021/Bone022(mirrored)/Circle022/Bone023(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone020(mirrored)/Bone021(mirrored)/Circle021/Bone022(mirrored)/Circle022/Bone023(mirrored)/Circle023
+        weight: 1
+      - path: Bone001/Bone002/Bone020(mirrored)/Bone021(mirrored)/Circle021/Bone022(mirrored)/Circle022/Bone023(mirrored)/Circle023/Bone024(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone020(mirrored)/Bone021(mirrored)/Circle021/Bone022(mirrored)/Circle022/Bone023(mirrored)/Circle023/Bone024(mirrored)/Circle024
+        weight: 1
+      - path: Bone001/Bone002/Bone020(mirrored)/Bone021(mirrored)/Circle021/Bone022(mirrored)/Circle022/Bone023(mirrored)/Circle023/Bone024(mirrored)/Circle024/Bone025(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone020(mirrored)/Bone021(mirrored)/Circle021/Bone022(mirrored)/Circle022/Bone023(mirrored)/Circle023/Bone024(mirrored)/Circle024/Bone025(mirrored)/Circle025
+        weight: 1
+      - path: Bone001/Bone002/Bone020(mirrored)/Bone021(mirrored)/Circle021/Bone022(mirrored)/Circle022/Bone023(mirrored)/Circle023/Bone024(mirrored)/Circle024/Bone025(mirrored)/Circle025/Bone026(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone027
+        weight: 1
+      - path: Bone001/Bone002/Bone027/Bone028
+        weight: 1
+      - path: Bone001/Bone002/Bone027/Bone028/Circle035
+        weight: 1
+      - path: Bone001/Bone002/Bone027/Bone028/Circle035/Bone029
+        weight: 1
+      - path: Bone001/Bone002/Bone027/Bone028/Circle035/Bone029/Circle031
+        weight: 1
+      - path: Bone001/Bone002/Bone027/Bone028/Circle035/Bone029/Circle031/Bone030
+        weight: 1
+      - path: Bone001/Bone002/Bone027/Bone028/Circle035/Bone029/Circle031/Bone030/Circle032
+        weight: 1
+      - path: Bone001/Bone002/Bone027/Bone028/Circle035/Bone029/Circle031/Bone030/Circle032/Bone031
+        weight: 1
+      - path: Bone001/Bone002/Bone027/Bone028/Circle035/Bone029/Circle031/Bone030/Circle032/Bone031/Circle033
+        weight: 1
+      - path: Bone001/Bone002/Bone027/Bone028/Circle035/Bone029/Circle031/Bone030/Circle032/Bone031/Circle033/Bone032
+        weight: 1
+      - path: Bone001/Bone002/Bone027/Bone028/Circle035/Bone029/Circle031/Bone030/Circle032/Bone031/Circle033/Bone032/Circle034
+        weight: 1
+      - path: Bone001/Bone002/Bone027/Bone028/Circle035/Bone029/Circle031/Bone030/Circle032/Bone031/Circle033/Bone032/Circle034/Bone033
+        weight: 1
+      - path: Bone001/Bone002/Bone027(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone027(mirrored)/Bone028(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone027(mirrored)/Bone028(mirrored)/Circle036
+        weight: 1
+      - path: Bone001/Bone002/Bone027(mirrored)/Bone028(mirrored)/Circle036/Bone029(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone027(mirrored)/Bone028(mirrored)/Circle036/Bone029(mirrored)/Circle037
+        weight: 1
+      - path: Bone001/Bone002/Bone027(mirrored)/Bone028(mirrored)/Circle036/Bone029(mirrored)/Circle037/Bone030(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone027(mirrored)/Bone028(mirrored)/Circle036/Bone029(mirrored)/Circle037/Bone030(mirrored)/Circle038
+        weight: 1
+      - path: Bone001/Bone002/Bone027(mirrored)/Bone028(mirrored)/Circle036/Bone029(mirrored)/Circle037/Bone030(mirrored)/Circle038/Bone031(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone027(mirrored)/Bone028(mirrored)/Circle036/Bone029(mirrored)/Circle037/Bone030(mirrored)/Circle038/Bone031(mirrored)/Circle039
+        weight: 1
+      - path: Bone001/Bone002/Bone027(mirrored)/Bone028(mirrored)/Circle036/Bone029(mirrored)/Circle037/Bone030(mirrored)/Circle038/Bone031(mirrored)/Circle039/Bone032(mirrored)
+        weight: 1
+      - path: Bone001/Bone002/Bone027(mirrored)/Bone028(mirrored)/Circle036/Bone029(mirrored)/Circle037/Bone030(mirrored)/Circle038/Bone031(mirrored)/Circle039/Bone032(mirrored)/Circle040
+        weight: 1
+      - path: Bone001/Bone002/Bone027(mirrored)/Bone028(mirrored)/Circle036/Bone029(mirrored)/Circle037/Bone030(mirrored)/Circle038/Bone031(mirrored)/Circle039/Bone032(mirrored)/Circle040/Bone033(mirrored)
+        weight: 1
+      - path: Bone001/Circle043
+        weight: 1
+      - path: Bone001/Circle043/Bone003
+        weight: 1
+      - path: Bone001/Circle043/Bone003/Bone004
+        weight: 1
+      - path: Bone001/Circle043/Bone003/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Circle043/Bone003/Eye
+        weight: 1
+      - path: Bone001/Circle043/Bone003/Eye001
+        weight: 1
+      - path: Octopus
+        weight: 1
+      - path: Rectangle001
+        weight: 1
+      - path: Rectangle001/Circle044
+        weight: 1
+      - path: Rectangle001/Circle045
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
