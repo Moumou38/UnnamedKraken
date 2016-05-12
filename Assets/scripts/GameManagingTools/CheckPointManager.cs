@@ -24,7 +24,12 @@ public class CheckPointManager {
 
     void onCurrentCheckPoint(CheckPoint iCurrentCheckpoint)
     {
-        m_currentCheckpoint = iCurrentCheckpoint; 
+        if(m_currentCheckpoint != null)
+        {
+            m_currentCheckpoint.switchActivity();
+        }
+        m_currentCheckpoint = iCurrentCheckpoint;
+        m_currentCheckpoint.switchActivity(); 
     }
 
     private CheckPoint m_currentCheckpoint; 

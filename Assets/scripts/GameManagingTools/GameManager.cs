@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
         m_states.Add(GameStateEnum.MAP_MENU, new MapMenu());  
         m_states.Add(GameStateEnum.SKILL_MENU, new SkillMenu());
 
+        LoadingState loading = m_states[GameStateEnum.IN_GAME] as LoadingState;
+        loading.onLoaded += OnLoaded; 
+
         foreach (IGameState r in m_states.Values)
         {
             RootState RS = r as RootState; 
@@ -65,6 +68,12 @@ public class GameManager : MonoBehaviour
         if (m_currentState != null)
             m_currentState.run();
             
+    }
+
+    void OnLoaded()
+    {
+
+
     }
 
     void HandleChangeState(GameStateEnum iState)
@@ -98,6 +107,9 @@ public class GameManager : MonoBehaviour
     {
         return m_currentState; 
     }
+
+    LevelManager m_currentSceneManager;
+    Dictionary<string, LevelManager> m_levelList = new Dictionary<string, LevelManager>();
 
     Dictionary<GameStateEnum, IGameState> m_states = new Dictionary<GameStateEnum, IGameState>(); 
     IGameState m_currentState;
