@@ -30,8 +30,7 @@ public class GameManager : MonoBehaviour
         //Call the InitGame function to initialize the first level 
         InitGame();
 
-        m_UIManager = GetComponent<UIManager>(); 
-        
+        m_UIManager = GetComponent<UIManager>();     
         
     }
 
@@ -46,7 +45,8 @@ public class GameManager : MonoBehaviour
         m_states.Add(GameStateEnum.SKILL_MENU, new SkillMenu());
 
         LoadingState loading = m_states[GameStateEnum.LOADING] as LoadingState;
-        loading.onLoaded += OnLoaded; 
+        loading.onLoaded += OnLoaded;
+        loading.onLoadingSceneOpen += FadeOut; 
 
         foreach (IGameState r in m_states.Values)
         {
@@ -64,11 +64,30 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GoToLoadingState()); 
     }
 
-    IEnumerator GoToLoadingState()
+    void FadeOut()
+    {
+        StartCoroutine(FadeOutCoroutine()); 
+    }
+
+    IEnumerator FadeOutCoroutine()
+    {
+        m_UIManager.HideUIElement(UIManager.UIElementEnum.MAIN_MENU);
+        m_UIManager.ShowUIElement(UIManager.UIElementEnum.LOADING);
+        yield return (StartCoroutine(m_UIManager.FadeOut(2f)));
+        if(m_currentState == m_states[GameStateEnum.LOADING])
+        {
+            LoadingState loading = m_states[GameStateEnum.LOADING] as LoadingState;
+            loading.OpenScene(); 
+
+        }
+        yield return null; 
+    }
+
+        IEnumerator GoToLoadingState()
     {
         yield return (StartCoroutine(m_UIManager.FadeIn(2f)));
         HandleChangeState(GameStateEnum.LOADING);
-        yield return (StartCoroutine(m_UIManager.FadeOut(2f)));
+
         yield return null; 
     }
         
@@ -82,8 +101,20 @@ public class GameManager : MonoBehaviour
 
     void OnLoaded(LevelManager iManager)
     {
-        m_currentSceneManager = iManager; 
+        m_currentSceneManager = iManager;
+        StartCoroutine(FadeInOut()); 
+       
+    }
 
+    IEnumerator FadeInOut()
+    {
+        yield return (StartCoroutine(m_UIManager.FadeIn(2f)));
+        m_UIManager.HideUIElement(UIManager.UIElementEnum.LOADING);
+        yield return (StartCoroutine(m_UIManager.FadeOut(2f)));
+
+        HandleChangeState(GameStateEnum.IN_GAME);
+
+        yield return null;
     }
 
     void HandleChangeState(GameStateEnum iState)

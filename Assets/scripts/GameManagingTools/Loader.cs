@@ -53,8 +53,9 @@ public class Loader : MonoBehaviour {
 
         if (onSceneLoaded != null)
         {
+            
+            yield return new WaitForSeconds(2f);
             onSceneLoaded(manager);
-            yield return new WaitForSeconds(3f);
         }
 
         SceneManager.UnloadScene("LoadingScene");

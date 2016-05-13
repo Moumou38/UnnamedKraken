@@ -40,16 +40,22 @@ public class LoadingState : RootState
             if (loader == null)
             {
                 Debug.Log("Loader not found");
-                loader.onSceneLoaded += onSceneLoaded;
+                
             }
             else
             {
                 if (onLoadingSceneOpen != null)
                     onLoadingSceneOpen(); 
-                loader.StartLoadCoroutine("ReefBarrier");
+                loader.onSceneLoaded += onSceneLoaded;
             }
         }
 
+    }
+
+    public void OpenScene()
+    {
+        Loader loader = GameObject.FindObjectOfType<Loader>();
+        loader.StartLoadCoroutine("ReefBarrier");
     }
     bool trigger = false; 
     string m_levelToLoad = "";

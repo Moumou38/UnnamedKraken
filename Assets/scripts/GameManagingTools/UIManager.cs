@@ -18,6 +18,15 @@ public class UIManager : MonoBehaviour {
         NONE
     }
 
+    public enum UICommands
+    {
+        START_LOAD_SCREEN,
+        END_LOAD_SCREEN,
+        START_LEVEL,
+        END_MENU,
+        NONE
+    }
+
     [Serializable]
     public struct UIObjects
     {
@@ -60,6 +69,8 @@ public class UIManager : MonoBehaviour {
             yield return new WaitForSeconds(step);
         }
 
+        if (onFadeDone != null)
+            onFadeDone();
         yield return null; 
     }
 
@@ -78,9 +89,12 @@ public class UIManager : MonoBehaviour {
             yield return new WaitForSeconds(step);
         }
         blackScreen.gameObject.SetActive(false);
+        if (onFadeDone != null)
+            onFadeDone(); 
         yield return null; 
     }
 
-   Dictionary<UIElementEnum, GameObject> m_UIElements = new Dictionary<UIElementEnum, GameObject>(); 
-
+   Dictionary<UIElementEnum, GameObject> m_UIElements = new Dictionary<UIElementEnum, GameObject>();
+    public delegate void OnFadeDone();
+    public event OnFadeDone onFadeDone; 
 }
