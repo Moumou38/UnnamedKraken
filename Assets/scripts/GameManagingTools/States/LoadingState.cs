@@ -4,29 +4,26 @@ using UnityEngine.SceneManagement;
 
 public class LoadingState : RootState
 {
+
+    AsyncOperation m_async; 
+
     public override void start()
     {
         Debug.Log("Entered : Loading");
         // Fade black ?
-        SceneManager.LoadScene("LoadingScene"); 
-    }
-
-    private IEnumerator LoadGame(string iSceneToLoad)
-    {
+        m_async = SceneManager.LoadSceneAsync("LoadingScene", LoadSceneMode.Single);
         
-        // STEP 1
-        // check if savefile. If yes : load level in save file if not, default start
-
-        // STEP 2
-
-        // STEP 3
-
-        // STEP 4
-
-
-
-        yield return null; 
+        
     }
+
+    void onSceneLoaded(LevelManager iManager)
+    {
+        // Scene is open, time to initialise evenything
+
+        if (onLoaded != null)
+            onLoaded(iManager); 
+    }  
+
 
     public override void stop()
     {
@@ -35,11 +32,30 @@ public class LoadingState : RootState
     }
     public override void run()
     {
+        if (m_async != null && m_async.isDone && !trigger)
+        {
+            trigger = true; 
+            Loader loader = GameObject.FindObjectOfType<Loader>();
 
+            if (loader == null)
+            {
+                Debug.Log("Loader not found");
+                loader.onSceneLoaded += onSceneLoaded;
+            }
+            else
+            {
+                if (onLoadingSceneOpen != null)
+                    onLoadingSceneOpen(); 
+                loader.StartLoadCoroutine("ReefBarrier");
+            }
+        }
 
     }
-
+    bool trigger = false; 
     string m_levelToLoad = "";
-    public delegate void OnLoaded();
-    public event OnLoaded onLoaded; 
+    public delegate void OnLoaded(LevelManager iManager);
+    public event OnLoaded onLoaded;
+    public delegate void OnLoadingSceneOpen();
+    public event OnLoadingSceneOpen onLoadingSceneOpen; 
+
 }

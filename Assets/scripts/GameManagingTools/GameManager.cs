@@ -29,13 +29,15 @@ public class GameManager : MonoBehaviour
             
         //Call the InitGame function to initialize the first level 
         InitGame();
+
+        m_UIManager = GetComponent<UIManager>(); 
+        
+        
     }
 
     //Initializes the game for each level.
     void InitGame()
     {
-        
-
         m_states.Add(GameStateEnum.MAIN_MENU, new MainMenuState());  
         m_states.Add(GameStateEnum.IN_GAME, new InGameState());  
         m_states.Add(GameStateEnum.LOADING, new LoadingState());  
@@ -43,7 +45,7 @@ public class GameManager : MonoBehaviour
         m_states.Add(GameStateEnum.MAP_MENU, new MapMenu());  
         m_states.Add(GameStateEnum.SKILL_MENU, new SkillMenu());
 
-        LoadingState loading = m_states[GameStateEnum.IN_GAME] as LoadingState;
+        LoadingState loading = m_states[GameStateEnum.LOADING] as LoadingState;
         loading.onLoaded += OnLoaded; 
 
         foreach (IGameState r in m_states.Values)
@@ -59,7 +61,15 @@ public class GameManager : MonoBehaviour
         
     public void Play()
     {
-        HandleChangeState(GameStateEnum.LOADING); 
+        StartCoroutine(GoToLoadingState()); 
+    }
+
+    IEnumerator GoToLoadingState()
+    {
+        yield return (StartCoroutine(m_UIManager.FadeIn(2f)));
+        HandleChangeState(GameStateEnum.LOADING);
+        yield return (StartCoroutine(m_UIManager.FadeOut(2f)));
+        yield return null; 
     }
         
     //Update is called every frame.
@@ -70,9 +80,9 @@ public class GameManager : MonoBehaviour
             
     }
 
-    void OnLoaded()
+    void OnLoaded(LevelManager iManager)
     {
-
+        m_currentSceneManager = iManager; 
 
     }
 
@@ -110,7 +120,7 @@ public class GameManager : MonoBehaviour
 
     LevelManager m_currentSceneManager;
     Dictionary<string, LevelManager> m_levelList = new Dictionary<string, LevelManager>();
-
+    UIManager m_UIManager; 
     Dictionary<GameStateEnum, IGameState> m_states = new Dictionary<GameStateEnum, IGameState>(); 
     IGameState m_currentState;
 }
