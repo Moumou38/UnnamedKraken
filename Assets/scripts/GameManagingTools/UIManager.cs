@@ -18,14 +18,7 @@ public class UIManager : MonoBehaviour {
         NONE
     }
 
-    public enum UICommands
-    {
-        START_LOAD_SCREEN,
-        END_LOAD_SCREEN,
-        START_LEVEL,
-        END_MENU,
-        NONE
-    }
+
 
     [Serializable]
     public struct UIObjects
@@ -56,42 +49,93 @@ public class UIManager : MonoBehaviour {
 
     public IEnumerator FadeIn(float iTime) //asynchron
     {
-       
+
+        //Image blackScreen = m_UIElements[UIElementEnum.FADE].GetComponent<Image>();
+        //blackScreen.gameObject.SetActive(true);
+        //float step = iTime / 255f;
+
+        //Color c = blackScreen.GetComponent<Image>().color;
+        //c.a = 0;
+        //blackScreen.color = c;
+
+
+        //for (float f = 0f; f <= iTime; f += step)
+        //{
+        //    c.a += step;
+        //    blackScreen.color = c;
+        //    yield return new WaitForSeconds(step);
+        //}
+
+        //if (onFadeDone != null)
+        //    onFadeDone();
+        //yield return null; 
+
+
         Image blackScreen = m_UIElements[UIElementEnum.FADE].GetComponent<Image>();
         blackScreen.gameObject.SetActive(true);
         float step = iTime / 255f;
 
-        for (float f = 0f; f <= iTime; f += step)
+        Color c = blackScreen.GetComponent<Image>().color;
+        c.a = 0;
+        blackScreen.color = c;
+
+
+        for (float f = 0f; f <= 1f; f += step)
         {
-            Color c = blackScreen.GetComponent<Image>().color;
             c.a += step;
             blackScreen.color = c;
+            Debug.Log("Step : " + step + " :::: c.a :" + c.a);
             yield return new WaitForSeconds(step);
         }
 
         if (onFadeDone != null)
             onFadeDone();
-        yield return null; 
+        yield return null;
+
     }
 
-    
 
-   public IEnumerator FadeOut(float iTime)
+
+    public IEnumerator FadeOut(float iTime)
     {
+
+        Image blackScreen = m_UIElements[UIElementEnum.FADE].GetComponent<Image>();
         
         float step = iTime / 255f;
-        Image blackScreen = m_UIElements[UIElementEnum.FADE].GetComponent<Image>(); 
-        for (float f = iTime; f >= 0f; f -= step)
+
+        Color c = blackScreen.GetComponent<Image>().color;
+        c.a = 1f;
+        blackScreen.color = c;
+
+
+        for (float f = 0f; f <= 1f; f += step)
         {
-            Color c = blackScreen.color;
             c.a -= step;
             blackScreen.color = c;
+            Debug.Log("Step : " + step + " :::: c.a :" + c.a);
             yield return new WaitForSeconds(step);
         }
+
         blackScreen.gameObject.SetActive(false);
         if (onFadeDone != null)
-            onFadeDone(); 
-        yield return null; 
+            onFadeDone();
+        yield return null;
+
+    }
+
+    public void SwitchUI(UIElementEnum iEnum)
+    {
+        HideAll();
+        ShowUIElement(iEnum);
+
+    }
+
+    public void HideAll()
+    {
+        foreach (UIElementEnum s in m_UIElements.Keys)
+        {
+            m_UIElements[s].SetActive(false);
+        }
     }
 
    Dictionary<UIElementEnum, GameObject> m_UIElements = new Dictionary<UIElementEnum, GameObject>();

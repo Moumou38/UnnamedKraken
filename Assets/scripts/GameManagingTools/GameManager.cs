@@ -1,24 +1,54 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
-    
+
 public class GameManager : MonoBehaviour
 {
 
-    public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
+    public static GameManager Instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
+     
+
+    public void NewGame()
+    {
+        StartCoroutine(GoToLoadingState(LoadingCommand.NEW_GAME));
+    }
+
+    IEnumerator GoToLoadingState(LoadingCommand iCommand)
+    {
+        yield return (StartCoroutine(m_UIManager.FadeIn(5f)));
+        HandleChangeState(GameStateEnum.LOADING);
+        if(m_currentState == m_states[GameStateEnum.LOADING])
+        {
+            LoadingState loading = m_states[GameStateEnum.LOADING] as LoadingState;
+            loading.setLoadingCommand(iCommand);
+        }
+
+
+        yield return null;
+    }
+
+    public IGameState getCurrentState()
+    {
+        return m_currentState;
+    }
+
+    public void initPlayer()
+    {
+
+    }
 
 
     //Awake is always called before any Start functions
     void Awake()
     {
         //Check if instance already exists
-        if (instance == null)
+        if (Instance == null)
                 
             //if not, set instance to this
-            instance = this;
+            Instance = this;
             
         //If instance already exists and it's not this:
-        else if (instance != this)
+        else if (Instance != this)
                 
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
             Destroy(gameObject);    
@@ -46,7 +76,6 @@ public class GameManager : MonoBehaviour
 
         LoadingState loading = m_states[GameStateEnum.LOADING] as LoadingState;
         loading.onLoaded += OnLoaded;
-        loading.onLoadingSceneOpen += FadeOut; 
 
         foreach (IGameState r in m_states.Values)
         {
@@ -58,39 +87,9 @@ public class GameManager : MonoBehaviour
         m_currentState.start(); 
 
     }
-        
-    public void Play()
-    {
-        StartCoroutine(GoToLoadingState()); 
-    }
+       
 
-    void FadeOut()
-    {
-        StartCoroutine(FadeOutCoroutine()); 
-    }
 
-    IEnumerator FadeOutCoroutine()
-    {
-        m_UIManager.HideUIElement(UIManager.UIElementEnum.MAIN_MENU);
-        m_UIManager.ShowUIElement(UIManager.UIElementEnum.LOADING);
-        yield return (StartCoroutine(m_UIManager.FadeOut(2f)));
-        if(m_currentState == m_states[GameStateEnum.LOADING])
-        {
-            LoadingState loading = m_states[GameStateEnum.LOADING] as LoadingState;
-            loading.OpenScene(); 
-
-        }
-        yield return null; 
-    }
-
-        IEnumerator GoToLoadingState()
-    {
-        yield return (StartCoroutine(m_UIManager.FadeIn(2f)));
-        HandleChangeState(GameStateEnum.LOADING);
-
-        yield return null; 
-    }
-        
     //Update is called every frame.
     void Update()
     {
@@ -102,19 +101,9 @@ public class GameManager : MonoBehaviour
     void OnLoaded(LevelManager iManager)
     {
         m_currentSceneManager = iManager;
-        StartCoroutine(FadeInOut()); 
-       
-    }
-
-    IEnumerator FadeInOut()
-    {
-        yield return (StartCoroutine(m_UIManager.FadeIn(2f)));
-        m_UIManager.HideUIElement(UIManager.UIElementEnum.LOADING);
-        yield return (StartCoroutine(m_UIManager.FadeOut(2f)));
-
         HandleChangeState(GameStateEnum.IN_GAME);
 
-        yield return null;
+
     }
 
     void HandleChangeState(GameStateEnum iState)
@@ -144,14 +133,12 @@ public class GameManager : MonoBehaviour
         //}
     }
 
-    public IGameState getCurrentState()
-    {
-        return m_currentState; 
-    }
+    
 
+    public GameObject PlayerPrefab;
     LevelManager m_currentSceneManager;
     Dictionary<string, LevelManager> m_levelList = new Dictionary<string, LevelManager>();
-    UIManager m_UIManager; 
+    public UIManager m_UIManager; 
     Dictionary<GameStateEnum, IGameState> m_states = new Dictionary<GameStateEnum, IGameState>(); 
     IGameState m_currentState;
 }

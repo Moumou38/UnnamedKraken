@@ -9,17 +9,18 @@ public class CheckPointManager {
         
     }
 
-    public void initCheckpoints(List<CheckPoint> iCheckPointList)
-    {
-        m_CheckPointList = iCheckPointList;
-
-        if (m_CheckPointList != null)
+    public void initCheckpoints(CheckPoint[] iCheckPointList)
+    {          
+        foreach (CheckPoint checkpoint in iCheckPointList)
         {
-            foreach (CheckPoint checkpoint in m_CheckPointList)
+            m_CheckPointList.Add(checkpoint);
+            if(checkpoint.m_startCheckPoint)
             {
-                checkpoint.onCheckPoint += onCurrentCheckPoint; 
+                m_startCheckPoint = checkpoint;
             }
+            checkpoint.onCheckPoint += onCurrentCheckPoint; 
         }
+        
     }
 
     void onCurrentCheckPoint(CheckPoint iCurrentCheckpoint)
@@ -32,6 +33,7 @@ public class CheckPointManager {
         m_currentCheckpoint.switchActivity(); 
     }
 
+    public CheckPoint m_startCheckPoint = null;
     private CheckPoint m_currentCheckpoint; 
     private List<CheckPoint> m_CheckPointList;
 }
