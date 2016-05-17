@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class sub_box_fluid_drag_script : MonoBehaviour
+public class FluidDrag : MonoBehaviour
 {
     public float viscosityDrag = 1f;
     private Rigidbody rigidBod;
@@ -36,9 +36,8 @@ public class sub_box_fluid_drag_script : MonoBehaviour
         Vector3 yneg_face_center = -(up * transform.localScale.y / 2) + transform.position;
         Vector3 zneg_face_center = -(forward * transform.localScale.z / 2) + transform.position;
 
-        //=== FOR EACH FACE of rigidbody box: ----------------------------------------
-        //=== Get Velocity: ---------------------------------------------
-        //=== Apply Opposing Force ----------------------------------------
+        //=== FOR EACH FACE of rigidbody box: get velocity, apply opposing force
+
 
         // FRONT (posZ):
         Vector3 pointVelPosZ = rigidBod.GetPointVelocity(zpos_face_center); // Get velocity of face's center (doesn't catch torque around center of mass)
