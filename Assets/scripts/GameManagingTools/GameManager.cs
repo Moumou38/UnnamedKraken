@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GoToLoadingState(LoadingCommand.NEW_GAME));
     }
 
+    public void Continue()
+    {
+        StartCoroutine(GoToLoadingState(LoadingCommand.LOAD_SAVE));
+    }
+
     IEnumerator GoToLoadingState(LoadingCommand iCommand)
     {
         yield return (StartCoroutine(m_UIManager.FadeIn(5f)));
@@ -56,17 +61,24 @@ public class GameManager : MonoBehaviour
         //Sets this to not be destroyed when reloading scene
         DontDestroyOnLoad(gameObject);
             
-            
+         m_UIManager = GetComponent<UIManager>();      
         //Call the InitGame function to initialize the first level 
         InitGame();
 
-        m_UIManager = GetComponent<UIManager>();     
+          
         
     }
 
     //Initializes the game for each level.
     void InitGame()
     {
+        // check for save : 
+        m_saveHandler = new SaveLoadHandler();
+        if (m_saveHandler.CheckSave())
+            m_UIManager.enableButton(UIManager.UIElementEnum.MAIN_MENU, "Continue");
+        else
+            m_UIManager.disableButton(UIManager.UIElementEnum.MAIN_MENU, "Continue"); 
+
         m_states.Add(GameStateEnum.MAIN_MENU, new MainMenuState());  
         m_states.Add(GameStateEnum.IN_GAME, new InGameState());  
         m_states.Add(GameStateEnum.LOADING, new LoadingState());  
@@ -74,20 +86,30 @@ public class GameManager : MonoBehaviour
         m_states.Add(GameStateEnum.MAP_MENU, new MapMenu());  
         m_states.Add(GameStateEnum.SKILL_MENU, new SkillMenu());
 
-        LoadingState loading = m_states[GameStateEnum.LOADING] as LoadingState;
-        loading.onLoaded += OnLoaded;
-
         foreach (IGameState r in m_states.Values)
         {
             RootState RS = r as RootState; 
-            RS.onChangeState += HandleChangeState; 
+            RS.onChangeState += HandleChangeState;
+            RS.onLoaded += OnLoaded;
+            RS.callSavingModule += SaveLoad;
         }
 
         m_currentState = m_states[GameStateEnum.MAIN_MENU];
         m_currentState.start(); 
 
     }
-       
+
+    void SaveLoad(bool load)
+    {
+        if (load)
+        {
+            m_saveHandler.LoadData();
+        }
+        else
+        {
+            m_saveHandler.SaveData(); 
+        }
+    } 
 
 
     //Update is called every frame.
@@ -141,4 +163,5 @@ public class GameManager : MonoBehaviour
     public UIManager m_UIManager; 
     Dictionary<GameStateEnum, IGameState> m_states = new Dictionary<GameStateEnum, IGameState>(); 
     IGameState m_currentState;
+    SaveLoadHandler m_saveHandler;
 }

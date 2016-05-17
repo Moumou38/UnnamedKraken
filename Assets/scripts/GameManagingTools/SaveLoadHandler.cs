@@ -5,12 +5,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System;
 using System.Collections.Generic;
 
-public class SaveLoadHandler : MonoBehaviour {
+public class SaveLoadHandler {
 
     
     public PlayerData LocalCopyOfData;
     public bool IsSceneBeingLoaded = false;
 
+    public SaveLoadHandler() { }
     public void SaveData()
     {
         if (!Directory.Exists("Saves"))
@@ -32,7 +33,20 @@ public class SaveLoadHandler : MonoBehaviour {
         FileStream saveFile = File.Open("Saves/save.sv", FileMode.Open);
 
         LocalCopyOfData = (PlayerData)formatter.Deserialize(saveFile);
-
+        PlayerData.Instance = LocalCopyOfData;
         saveFile.Close();
+    }
+
+    public bool CheckSave()
+    {
+        if (!Directory.Exists("Saves"))
+            return false;
+        else
+        {
+            if (!File.Exists("Saves/save.sv"))
+                return false;
+            else
+                return true; 
+        }
     }
 }

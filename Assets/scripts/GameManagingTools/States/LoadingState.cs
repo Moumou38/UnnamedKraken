@@ -22,16 +22,28 @@ public class LoadingState : RootState
         switch(iCommand)
         {
             case LoadingCommand.BACK_TO_MENU:
+                m_sceneToOpen = "MainMenu"; 
                 break;
             case LoadingCommand.LOAD_SAVE:
+                //load
+                callCallSavingModule(true);
+                m_sceneToOpen = PlayerData.Instance.SceneName; 
                 break;
             case LoadingCommand.NEW_GAME:
+                m_sceneToOpen = "ReefBarrier";
+                PlayerData.Instance.SceneName = m_sceneToOpen;
+                // create save
+                callCallSavingModule(false); 
                 break;
             case LoadingCommand.NEW_LEVEL:
                 break;
             case LoadingCommand.NONE:
                 break;
+
+
         }
+
+        m_async = SceneManager.LoadSceneAsync("LoadingScene", LoadSceneMode.Single);
     }
 
     public override void start()
@@ -39,7 +51,7 @@ public class LoadingState : RootState
         Debug.Log("Entered : Loading");
         // Fade black ?
 
-        m_async = SceneManager.LoadSceneAsync("LoadingScene", LoadSceneMode.Single);
+        
     }
 
     void onSceneLoaded(LevelManager iManager)
@@ -48,8 +60,8 @@ public class LoadingState : RootState
         GameManager.Instance.initPlayer();
 
 
-        if (onLoaded != null)
-            onLoaded(iManager);
+
+        callOnLoaded(iManager);
 
         GameManager.Instance.StartCoroutine(FadeInOut());
 
@@ -59,6 +71,10 @@ public class LoadingState : RootState
     {
         yield return (GameManager.Instance.StartCoroutine(GameManager.Instance.m_UIManager.FadeIn(5f)));
         GameManager.Instance.m_UIManager.HideUIElement(UIManager.UIElementEnum.LOADING);
+        if (m_sceneToOpen == "MainMenu")
+        {
+            GameManager.Instance.m_UIManager.ShowUIElement(UIManager.UIElementEnum.MAIN_MENU);
+        }
         yield return (GameManager.Instance.StartCoroutine(GameManager.Instance.m_UIManager.FadeOut(5f)));
         yield return null;
     }
@@ -89,7 +105,7 @@ public class LoadingState : RootState
         GameManager.Instance.m_UIManager.ShowUIElement(UIManager.UIElementEnum.LOADING);
         yield return (GameManager.Instance.StartCoroutine(GameManager.Instance.m_UIManager.FadeOut(5f)));
 
-        OpenScene("ReefBarrier");
+        OpenScene(m_sceneToOpen);
 
         yield return null;
     }
@@ -98,41 +114,48 @@ public class LoadingState : RootState
     {
         // STEP 1
         // check if savefile. If yes : load level in save file if not, default start
-        AsyncOperation async = SceneManager.LoadSceneAsync(iSceneToLoad, LoadSceneMode.Additive);
-
-        while (!async.isDone)
+        if (iSceneToLoad != "")
         {
-            yield return new WaitForEndOfFrame();
-        }
+            AsyncOperation async = SceneManager.LoadSceneAsync(iSceneToLoad, LoadSceneMode.Additive);
 
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(iSceneToLoad));
-        LevelManager manager = GameObject.FindObjectOfType<LevelManager>();
-        if (manager == null)
-        {
-            Debug.Log("No SubScene to Load");
+            while (!async.isDone)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(iSceneToLoad));
+            LevelManager manager = GameObject.FindObjectOfType<LevelManager>();
+            if (manager == null)
+            {
+                Debug.Log("No SubScene to Load");
+            }
+            else
+            {
+                foreach (string s in manager.m_subScene)
+                {
+
+                    AsyncOperation subasync = SceneManager.LoadSceneAsync(s, LoadSceneMode.Additive);
+
+                    while (!subasync.isDone)
+                    {
+                        Debug.Log("Loading : " + s);
+                        yield return new WaitForEndOfFrame();
+                    }
+                }
+
+            }
+
+
+            yield return new WaitForSeconds(2f);
+            onSceneLoaded(manager);
+
+            SceneManager.UnloadScene("LoadingScene");
         }
         else
         {
-            foreach (string s in manager.m_subScene)
-            {
-
-                AsyncOperation subasync = SceneManager.LoadSceneAsync(s, LoadSceneMode.Additive);
-
-                while (!subasync.isDone)
-                {
-                    Debug.Log("Loading : " + s);
-                    yield return new WaitForEndOfFrame();
-                }
-            }
-
+            m_sceneToOpen = "MainMenu";
+            OpenScene(m_sceneToOpen);
         }
-
-
-        yield return new WaitForSeconds(2f);
-        onSceneLoaded(manager);
-
-        SceneManager.UnloadScene("LoadingScene");
-
 
         yield return null;
     }
@@ -144,10 +167,8 @@ public class LoadingState : RootState
 
     bool trigger = false; 
     string m_levelToLoad = "";
+    string m_sceneToOpen = "MainMenu";
     LoadingCommand m_currentCommand = LoadingCommand.NONE;
-    public delegate void OnLoaded(LevelManager iManager);
-    public event OnLoaded onLoaded;
-    public delegate void OnLoadingSceneOpen();
-    public event OnLoadingSceneOpen onLoadingSceneOpen; 
+
 
 }

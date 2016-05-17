@@ -5,6 +5,7 @@ public interface IGameState {
     void start();
     void stop();
     void run();
+
 }
 
 public enum GameStateEnum

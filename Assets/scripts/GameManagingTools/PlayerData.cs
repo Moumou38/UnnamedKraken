@@ -19,6 +19,11 @@ public class PlayerData
             }
             return instance;
         }
+        set
+        {
+            instance = value; 
+
+        }
     }
 
     public string SceneName = "";

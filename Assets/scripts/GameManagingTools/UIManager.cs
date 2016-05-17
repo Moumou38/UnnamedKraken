@@ -46,6 +46,47 @@ public class UIManager : MonoBehaviour {
         m_UIElements[iElementType].gameObject.SetActive(true);
     }
 
+    public void disableButton(UIElementEnum iElementType, string name)
+    {
+        GameObject go = m_UIElements[iElementType];
+        if(go != null)
+        {
+            foreach(Transform t in go.GetComponentsInChildren<Transform>())
+            {
+                if(t.name == name)
+                {
+                    Button b = t.gameObject.GetComponent<Button>();
+                    if(b != null)
+                    {
+                        b.interactable = false; 
+                    }
+
+                    break; 
+                }
+            }
+        }
+    }
+
+    public void enableButton(UIElementEnum iElementType, string name)
+    {
+        GameObject go = m_UIElements[iElementType];
+        if (go != null)
+        {
+            foreach (Transform t in go.GetComponentsInChildren<Transform>())
+            {
+                if (t.name == name)
+                {
+                    Button b = t.gameObject.GetComponent<Button>();
+                    if (b != null)
+                    {
+                        b.interactable = true;
+                    }
+                    break; 
+                }
+            }
+        }
+    }
+
 
     public IEnumerator FadeIn(float iTime) //asynchron
     {
@@ -84,7 +125,7 @@ public class UIManager : MonoBehaviour {
         {
             c.a += step;
             blackScreen.color = c;
-            Debug.Log("Step : " + step + " :::: c.a :" + c.a);
+            //Debug.Log("Step : " + step + " :::: c.a :" + c.a);
             yield return new WaitForSeconds(step);
         }
 
@@ -112,7 +153,7 @@ public class UIManager : MonoBehaviour {
         {
             c.a -= step;
             blackScreen.color = c;
-            Debug.Log("Step : " + step + " :::: c.a :" + c.a);
+            //Debug.Log("Step : " + step + " :::: c.a :" + c.a);
             yield return new WaitForSeconds(step);
         }
 
