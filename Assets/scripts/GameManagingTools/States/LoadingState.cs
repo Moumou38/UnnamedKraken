@@ -56,12 +56,11 @@ public class LoadingState : RootState
 
     void onSceneLoaded(LevelManager iManager)
     {
-        // Scene is open, time to initialise evenything
-        GameManager.Instance.initPlayer();
-
-
 
         callOnLoaded(iManager);
+        // Scene is open, time to initialise evenything
+        GameManager.Instance.initPlayer();
+              
 
         GameManager.Instance.StartCoroutine(FadeInOut());
 

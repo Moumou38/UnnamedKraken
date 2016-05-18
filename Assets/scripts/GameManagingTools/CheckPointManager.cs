@@ -23,6 +23,16 @@ public class CheckPointManager {
         
     }
 
+    public CheckPoint getCheckPoint(int id)
+    {
+        foreach(CheckPoint c in m_CheckPointList)
+        {
+            if (c.m_id == id)
+                return c; 
+        }
+        return null;
+    }
+
     void onCurrentCheckPoint(CheckPoint iCurrentCheckpoint)
     {
         if(m_currentCheckpoint != null)
@@ -30,10 +40,20 @@ public class CheckPointManager {
             m_currentCheckpoint.switchActivity();
         }
         m_currentCheckpoint = iCurrentCheckpoint;
-        m_currentCheckpoint.switchActivity(); 
+        m_currentCheckpoint.switchActivity();
+
+        if (onCheckPoint != null)
+            onCheckPoint(iCurrentCheckpoint); 
     }
 
-    public CheckPoint m_startCheckPoint = null;
+    public CheckPoint getStartCheckPoint()
+    {
+        return m_startCheckPoint; 
+    }
+
+    public delegate void OnCheckPoint(CheckPoint iCheckPoint);
+    public event OnCheckPoint onCheckPoint;
+    CheckPoint m_startCheckPoint = null;
     private CheckPoint m_currentCheckpoint; 
-    private List<CheckPoint> m_CheckPointList;
+    private List<CheckPoint> m_CheckPointList = new List<CheckPoint>();
 }

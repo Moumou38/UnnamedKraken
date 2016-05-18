@@ -39,7 +39,31 @@ public class GameManager : MonoBehaviour
 
     public void initPlayer()
     {
+        m_currentSceneManager.initCheckPoints(); 
+        if (m_currentState == m_states[GameStateEnum.IN_GAME] && m_currentSceneManager != null)
+        {
+            // get checkPoint position
+            if(PlayerData.Instance.CheckPointID != -1)
+            {
+                // place on checkpoint ID
+                CheckPoint p = m_currentSceneManager.getCheckPoint(PlayerData.Instance.CheckPointID); 
+                if(p != null)
+                {
+                    GameObject go = (GameObject)Instantiate(PlayerPrefab, p.gameObject.transform.position, p.gameObject.transform.rotation);
+                }
+                else
+                {
+                    GameObject go = (GameObject)Instantiate(PlayerPrefab, m_currentSceneManager.getStartCheckPoint().transform.position, m_currentSceneManager.getStartCheckPoint().transform.rotation);
+                }
+            }
+            else
+            {
+                GameObject go = (GameObject)Instantiate(PlayerPrefab, m_currentSceneManager.getStartCheckPoint().transform.position, m_currentSceneManager.getStartCheckPoint().transform.rotation);
 
+            }
+        }
+
+        // init skills and stats
     }
 
 
@@ -123,9 +147,16 @@ public class GameManager : MonoBehaviour
     void OnLoaded(LevelManager iManager)
     {
         m_currentSceneManager = iManager;
+        m_currentSceneManager.onCheckPoint += OnCheckPointTriggered; 
         HandleChangeState(GameStateEnum.IN_GAME);
 
 
+    }
+
+    void OnCheckPointTriggered(CheckPoint iCheckPoint)
+    {
+        PlayerData.Instance.CheckPointID = iCheckPoint.m_id; 
+        m_saveHandler.SaveData();
     }
 
     void HandleChangeState(GameStateEnum iState)
