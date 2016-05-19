@@ -6,10 +6,10 @@ public class PlayerPathManager {
 
     public PlayerPathManager()
     {
-        Init(); 
+        InitIntersectionManager(); 
     }
 
-    void Init()
+    public void InitIntersectionManager()
     {
         m_intersectionList = new List<Intersections>(); 
         Intersections[] T = GameObject.FindObjectsOfType<Intersections>();
