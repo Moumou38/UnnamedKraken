@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+// READ THIS : http://www.performancesimulations.com/wp/how-to-get-big-speed-increases-in-unitys-physics-or-any-math-heavy-code/
 
 public class FluidDrag : MonoBehaviour
 {
@@ -32,11 +33,9 @@ public class FluidDrag : MonoBehaviour
         Vector3 ypos_face_center = (up * transform.localScale.y / 2) + transform.position;
         Vector3 zpos_face_center = (forward * transform.localScale.z / 2) + transform.position;
 
-
-
         // FRONT (posZ):
         Vector3 pointVelPosZ = rig.GetPointVelocity(zpos_face_center); 
-        Vector3 fluidDragVecPosZ = -forward * Vector3.Dot(forward, pointVelPosZ) * z_area * viscosityDrag;       
+        Vector3 fluidDragVecPosZ = -forward * Vector3.Dot(forward, pointVelPosZ) * z_area * viscosityDrag; // TO DO : compute dot product myself      
         rig.AddForceAtPosition(fluidDragVecPosZ * 2, zpos_face_center);  // Apply force at face's center, in the direction opposite the face normal
 
 
