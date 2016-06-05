@@ -1,25 +1,24 @@
 ﻿using UnityEngine;
-using System.Collections;
+
 
 public class FluidDrag : MonoBehaviour
 {
     public float viscosityDrag = 1f;
-    private Rigidbody rigidBod;
+    private Rigidbody rig;
 
-    // Surface Areas for each pair of faces (neg x will be same as pos x):
-    private float sa_x;
-    private float sa_y;
-    private float sa_z;
+    private float x_area;
+    private float y_area;
+    private float z_area;
 
-    // Use this for initialization
+
     void Start()
     {
-        rigidBod = GetComponent<Rigidbody>();
+        rig = GetComponent<Rigidbody>();
 
         // Calculate surface areas for each face:
-        sa_x = transform.localScale.y * transform.localScale.z;
-        sa_y = transform.localScale.x * transform.localScale.z;
-        sa_z = transform.localScale.x * transform.localScale.y;
+        x_area = transform.localScale.y * transform.localScale.z;
+        y_area = transform.localScale.x * transform.localScale.z;
+        z_area = transform.localScale.x * transform.localScale.y;
     }
 
     void FixedUpdate()
@@ -32,31 +31,71 @@ public class FluidDrag : MonoBehaviour
         Vector3 xpos_face_center = (right * transform.localScale.x / 2) + transform.position;
         Vector3 ypos_face_center = (up * transform.localScale.y / 2) + transform.position;
         Vector3 zpos_face_center = (forward * transform.localScale.z / 2) + transform.position;
-        Vector3 xneg_face_center = -(right * transform.localScale.x / 2) + transform.position;
-        Vector3 yneg_face_center = -(up * transform.localScale.y / 2) + transform.position;
-        Vector3 zneg_face_center = -(forward * transform.localScale.z / 2) + transform.position;
 
-        //=== FOR EACH FACE of rigidbody box: get velocity, apply opposing force
 
 
         // FRONT (posZ):
-        Vector3 pointVelPosZ = rigidBod.GetPointVelocity(zpos_face_center); // Get velocity of face's center (doesn't catch torque around center of mass)
-        Vector3 fluidDragVecPosZ = -forward *     // in the direction opposite the face's normal
-                                    Vector3.Dot(forward, pointVelPosZ)   // get the proportion of the velocity vector in the direction of face's normal
-                                    * sa_z * viscosityDrag;   // multiplied by face's surface area, and user-defined multiplier
-        rigidBod.AddForceAtPosition(fluidDragVecPosZ * 2, zpos_face_center);  // Apply force at face's center, in the direction opposite the face normal
-                                                                              // the multiplied by 2 is for the opposite symmetrical face to reduce # of computations
+        Vector3 pointVelPosZ = rig.GetPointVelocity(zpos_face_center); 
+        Vector3 fluidDragVecPosZ = -forward * Vector3.Dot(forward, pointVelPosZ) * z_area * viscosityDrag;       
+        rig.AddForceAtPosition(fluidDragVecPosZ * 2, zpos_face_center);  // Apply force at face's center, in the direction opposite the face normal
+
 
         // TOP (posY):
-        Vector3 pointVelPosY = rigidBod.GetPointVelocity(ypos_face_center);
-        Vector3 fluidDragVecPosY = -up * Vector3.Dot(up, pointVelPosY) * sa_y * (viscosityDrag);
-        rigidBod.AddForceAtPosition(fluidDragVecPosY * 2, ypos_face_center);
+        Vector3 pointVelPosY = rig.GetPointVelocity(ypos_face_center);
+        Vector3 fluidDragVecPosY = -up * Vector3.Dot(up, pointVelPosY) * y_area * viscosityDrag;
+        rig.AddForceAtPosition(fluidDragVecPosY * 2, ypos_face_center);
 
         // RIGHT (posX):
-        Vector3 pointVelPosX = rigidBod.GetPointVelocity(xpos_face_center);
-        Vector3 fluidDragVecPosX = -right * Vector3.Dot(right, pointVelPosX) * sa_x * viscosityDrag;
-        rigidBod.AddForceAtPosition(fluidDragVecPosX * 2, xpos_face_center);
+        Vector3 pointVelPosX = rig.GetPointVelocity(xpos_face_center);
+        Vector3 fluidDragVecPosX = -right * Vector3.Dot(right, pointVelPosX) * x_area * viscosityDrag;
+        rig.AddForceAtPosition(fluidDragVecPosX * 2, xpos_face_center);
 
+
+        // TO DO : opposite faces and optimisation 
+
+
+        Vector3 xneg_face_center = -(right * transform.localScale.x / 2) + transform.position; // Opposite faces
+        Vector3 yneg_face_center = -(up * transform.localScale.y / 2) + transform.position;
+        Vector3 zneg_face_center = -(forward * transform.localScale.z / 2) + transform.position;
+
+
+        Vector3 cachedTransformForward = transform.forward; // already normalized ?
+        Vector3 fluidDragVecNegZ;
+        Vector3 pointVelNegZ = rig.GetPointVelocity(zneg_face_center);
+
+        float dot;
+        dot = -cachedTransformForward.x * pointVelNegZ.x +
+            -cachedTransformForward.y * pointVelNegZ.y +
+            -cachedTransformForward.z * pointVelNegZ.z;
+
+        fluidDragVecNegZ.x = cachedTransformForward.x * dot * z_area * viscosityDrag;
+        fluidDragVecNegZ.y = cachedTransformForward.y * dot * z_area * viscosityDrag;
+        fluidDragVecNegZ.z = cachedTransformForward.z * dot * z_area * viscosityDrag;
+        rig.AddForceAtPosition(fluidDragVecNegZ * 2, zneg_face_center);
+
+        Vector3 fluidDragVecNegY;
+        Vector3 pointVelNegY = rig.GetPointVelocity(yneg_face_center);
+
+        dot = -cachedTransformForward.x * pointVelNegZ.x +
+            -cachedTransformForward.y * pointVelNegZ.y +
+            -cachedTransformForward.z * pointVelNegZ.z;
+
+        fluidDragVecNegY.x = cachedTransformForward.x * dot * y_area * viscosityDrag;
+        fluidDragVecNegY.y = cachedTransformForward.y * dot * y_area * viscosityDrag;
+        fluidDragVecNegY.z = cachedTransformForward.z * dot * y_area * viscosityDrag;
+        rig.AddForceAtPosition(fluidDragVecNegY * 2, yneg_face_center);
+
+        Vector3 fluidDragVecNegX;
+        Vector3 pointVelNegX = rig.GetPointVelocity(xneg_face_center);
+
+        dot = -cachedTransformForward.x * pointVelNegX.x +
+            -cachedTransformForward.y * pointVelNegX.y +
+            -cachedTransformForward.z * pointVelNegX.z;
+
+        fluidDragVecNegX.x = cachedTransformForward.x * dot * x_area * viscosityDrag;
+        fluidDragVecNegX.y = cachedTransformForward.y * dot * x_area * viscosityDrag;
+        fluidDragVecNegX.z = cachedTransformForward.z * dot * x_area * viscosityDrag;
+        rig.AddForceAtPosition(fluidDragVecNegX * 2, xneg_face_center);
     }
 }
 
