@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 public class PlayerPhysics : MonoBehaviour
 {
-    public bool jump;
-    public bool idle = false;
-    public bool currentRotate = true;
-    public float forw;
-    public float lat;
-    public const float jumpPower = 3f;
-
+    bool jump;
+    bool idle = false;
+    bool currentRotate = true;
+    float forw;
+    float lat;
+    const float jumpPower = 3f;
+    public GameObject controlCameraObject;
     private float currentJump;
     private float velocity = 1f;
     private float smooth = 15f;
@@ -83,11 +83,12 @@ public class PlayerPhysics : MonoBehaviour
     }
         
 
-    GameObject controlCameraObject; 
+     
     void Start()
     {
         jump = false;
-        controlCameraObject = GameObject.Find("Main Camera");
+        if(controlCameraObject == null) //this should not happen
+            controlCameraObject = GameObject.Find("Main Camera");
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;  
     }
 
