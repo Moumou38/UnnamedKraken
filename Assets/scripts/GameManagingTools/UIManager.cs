@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour {
         FADE,
         MAIN_MENU,
         LOADING, 
+        DEBUG,
         NONE
     }
 
