@@ -1,3 +1,8 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Projector' with 'unity_Projector'
+// Upgrade NOTE: replaced '_ProjectorClip' with 'unity_ProjectorClip'
+
 Shader "RealisticWater/RipplesCausticPC" {
 	Properties {
 	_TintColor ("Tint Color", Color) = (0.5,0.5,0.5,1)
@@ -25,7 +30,7 @@ Shader "RealisticWater/RipplesCausticPC" {
 			fixed _RiplesStrength;
 			sampler2D _FalloffTex;
 			sampler2D _RampStrength;
-			float4x4 _Projector;
+			float4x4 unity_Projector;
 			float4 _LightColor0; 
 			sampler2D _WaterDisplacementTexture;
 
@@ -35,15 +40,15 @@ Shader "RealisticWater/RipplesCausticPC" {
 				float4 vertex : POSITION;
 			};
 			
-			float4x4 _ProjectorClip;
+			float4x4 unity_ProjectorClip;
 			float4 _WaterDisplacementTexture_ST;
 
 			v2f vert (float4 vertex : POSITION)
 			{
 				v2f o;
-				o.vertex = mul (UNITY_MATRIX_MVP, vertex);
-				o.uvFalloff = mul (_ProjectorClip, vertex);
-				o.uv_Offset = mul (_Projector, vertex);
+				o.vertex = UnityObjectToClipPos (vertex);
+				o.uvFalloff = mul (unity_ProjectorClip, vertex);
+				o.uv_Offset = mul (unity_Projector, vertex);
 				return o;
 			}
 

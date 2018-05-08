@@ -1,3 +1,7 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
 Shader "RealisticWater/WaterLighting" {
 	Properties {
 	_Color ("Color", Color) = (0.5,0.5,0.5,0.5)
@@ -50,7 +54,7 @@ struct Input {
 
 	void vert (inout appdata_full v, out Input o) {
 		UNITY_INITIALIZE_OUTPUT(Input,o);
-		float4 oPos = mul(UNITY_MATRIX_MVP, v.vertex);
+		float4 oPos = UnityObjectToClipPos(v.vertex);
 		#if UNITY_UV_STARTS_AT_TOP
 			float scale = -1.0;
 		#else
@@ -58,7 +62,7 @@ struct Input {
 		#endif
 		o.proj.xy = (float2(oPos.x, oPos.y*scale) + oPos.w) * 0.5;
 		o.proj.zw = oPos.zw;
-		half2 scaleeUv = -mul(_Object2World,(v.vertex)).xz * _TexturesScale;
+		half2 scaleeUv = -mul(unity_ObjectToWorld,(v.vertex)).xz * _TexturesScale;
 		o.Wave1 =  scaleeUv * _Wave1_ST.xy + _Wave1_ST.w; 
 		o.Wave2 =  scaleeUv * _Wave2_ST.xy + _Wave2_ST.w; 
 	}

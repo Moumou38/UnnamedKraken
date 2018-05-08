@@ -31,9 +31,14 @@ public class UIManager : MonoBehaviour {
 
     void Awake()
     {
+        
+    }
+
+    public void init()
+    {
         foreach (UIObjects o in UITab)
         {
-            m_UIElements.Add(o.m_type, o.m_element); 
+            m_UIElements.Add(o.m_type, o.m_element);
         }
     }
 

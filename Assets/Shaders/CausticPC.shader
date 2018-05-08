@@ -1,3 +1,8 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Projector' with 'unity_Projector'
+// Upgrade NOTE: replaced '_ProjectorClip' with 'unity_ProjectorClip'
+
 Shader "RealisticWater/CausticPC" {
 	Properties {
 	_TintColor ("Tint Color", Color) = (0.5,0.5,0.5,1)
@@ -47,8 +52,8 @@ Shader "RealisticWater/CausticPC" {
 				float2 uv_CausticMask : TEXCOORD4;
 			};
 			
-			float4x4 _Projector;
-			float4x4 _ProjectorClip;
+			float4x4 unity_Projector;
+			float4x4 unity_ProjectorClip;
 			float4 _CausticTex1_ST;
 			float4 _CausticTex2_ST;
 			float4 _CausticMask_ST;
@@ -56,9 +61,9 @@ Shader "RealisticWater/CausticPC" {
 			v2f vert (float4 vertex : POSITION)
 			{
 				v2f o;
-				o.vertex = mul (UNITY_MATRIX_MVP, vertex);
-				o.uv_Offset = mul (_Projector, vertex);
-				o.uvFalloff = mul (_ProjectorClip, vertex);
+				o.vertex = UnityObjectToClipPos (vertex);
+				o.uv_Offset = mul (unity_Projector, vertex);
+				o.uvFalloff = mul (unity_ProjectorClip, vertex);
 				half3 tileableUv = mul(_projectiveMatrCausticScale,(vertex));
 				o.uv_CausticTex1 = TRANSFORM_TEX( tileableUv.xyz, _CausticTex1);
 				o.uv_CausticTex2 = TRANSFORM_TEX( tileableUv.xyz, _CausticTex2);
@@ -109,15 +114,15 @@ Shader "RealisticWater/CausticPC" {
 				#endif
 			};
 			
-			float4x4 _Projector;
-			float4x4 _ProjectorClip;
+			float4x4 unity_Projector;
+			float4x4 unity_ProjectorClip;
 
 			v2f vert (float4 vertex : POSITION)
 			{
 				v2f o;
-				o.vertex = mul (UNITY_MATRIX_MVP, vertex);
-				o.uv_Offset = mul (_Projector, vertex);
-				o.uv_WetTex = mul (_ProjectorClip, vertex);
+				o.vertex = UnityObjectToClipPos (vertex);
+				o.uv_Offset = mul (unity_Projector, vertex);
+				o.uv_WetTex = mul (unity_ProjectorClip, vertex);
 				#if UNITY_VERSION >= 500
 				UNITY_TRANSFER_FOG(o, o.vertex);
 				#endif

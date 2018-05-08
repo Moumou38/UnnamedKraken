@@ -85,12 +85,13 @@ public class GameManager : MonoBehaviour
         //Sets this to not be destroyed when reloading scene
         DontDestroyOnLoad(gameObject);
             
-         m_UIManager = GetComponent<UIManager>();      
+         m_UIManager = GetComponent<UIManager>();
         //Call the InitGame function to initialize the first level 
+        if (m_UIManager != null)
+            m_UIManager.init();
+
         InitGame();
 
-          
-        
     }
 
     //Initializes the game for each level.

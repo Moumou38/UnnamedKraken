@@ -1,3 +1,8 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+
 Shader "RealisticWater/WaterMobileWithRipples" {
 Properties {
 	_Color ("Main Color", Color) = (1,1,1,1)
@@ -105,7 +110,7 @@ v2f vert (appdata_t v)
 	fixed2 time1 = fixed2(fmod(_Time.x*_Direction.x, 1), fmod(_Time.x*_Direction.y, 1));
 	fixed2 time2 = fixed2(fmod(_Time.x*_Direction.z, 1), fmod(_Time.x*_Direction.w, 1));
 	
-	fixed3 posWorld = mul(_Object2World, v.vertex).xyz;
+	fixed3 posWorld = mul(unity_ObjectToWorld, v.vertex).xyz;
 	fixed2 scaleeUv = -posWorld.xz / _TexturesScale;
 	o.uvWave12.xy = scaleeUv * _Wave1_ST.xy + _Wave1_ST.w  + time1;
 	o.uvWave12.zw = scaleeUv * _Wave2_ST.xy + _Wave2_ST.w  + time2;
@@ -142,7 +147,7 @@ v2f vert (appdata_t v)
 	#endif
 
 	v.vertex.xyz += offsets;	
-	fixed4 oPos = mul(UNITY_MATRIX_MVP, v.vertex);	
+	fixed4 oPos = UnityObjectToClipPos(v.vertex);	
 
 	#if UNITY_UV_STARTS_AT_TOP
 	fixed scale = -1.0;
@@ -153,10 +158,10 @@ v2f vert (appdata_t v)
 	o.uvgrab.zw = oPos.zw;
 	o.uvgrab.xy += (offsets.xz + offsets.y*offsets.y)/_DistortionVert;
 	
-	fixed3 normWorld = normalize(mul((fixed3x3)(_Object2World), v.normal).xyz);
+	fixed3 normWorld = normalize(mul((fixed3x3)(unity_ObjectToWorld), v.normal).xyz);
 
 	#if cubeMap_on
-    fixed3 normalDir = normalize(mul(float4(v.normal, 0.0), _World2Object).xyz);
+    fixed3 normalDir = normalize(mul(float4(v.normal, 0.0), unity_WorldToObject).xyz);
 	o.reflectionDir.xyz = reflect(posWorld - _WorldSpaceCameraPos, normalDir);
 	#endif
 
@@ -164,7 +169,7 @@ v2f vert (appdata_t v)
 	o.offset.zw = o.offset.xy/30;
 	o.offset.xy = o.offset.xy*o.offset.xy*o.offset.xy;
 	
-	o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+	o.vertex = UnityObjectToClipPos(v.vertex);
 	return o;
 }
 

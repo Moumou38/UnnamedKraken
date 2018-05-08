@@ -1,3 +1,7 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
 Shader "RealisticWater/CausticMobile" {
 		Properties {
 	_TintColor ("Tint Color", Color) = (0.5,0.5,0.5,1)
@@ -56,8 +60,8 @@ Shader "RealisticWater/CausticMobile" {
 				fixed2 time1 = fixed2(fmod(_Time.x*_CausticDirection.x, 1), fmod(_Time.x*_CausticDirection.y, 1));
 				fixed2 time2 = fixed2(fmod(_Time.x*_CausticDirection.z, 1), fmod(_Time.x*_CausticDirection.w, 1));
 				fixed2 time3 = fixed2(fmod(_Time.x*_DistortionDirection.x, 1), fmod(_Time.x*_DistortionDirection.y, 1));
-				o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
-				o.worldPos = mul (_Object2World, v.vertex).xyz;
+				o.pos = UnityObjectToClipPos (v.vertex);
+				o.worldPos = mul (unity_ObjectToWorld, v.vertex).xyz;
 				o.worldPos.y = 1 - o.worldPos.y + _Height;
 				o.uv_CausticTex1 = TRANSFORM_TEX(v.texcoord, _CausticTex1)  + time1;
 				o.uv_CausticTex2 = TRANSFORM_TEX( v.texcoord, _CausticTex1) + time2;

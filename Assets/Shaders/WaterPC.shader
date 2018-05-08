@@ -1,3 +1,7 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
 Shader "RealisticWater/WaterPC" {
 Properties {
 	_Color ("Main Color", Color) = (1,1,1,1)
@@ -141,9 +145,9 @@ struct v2f {
 v2f vert (appdata_t v)
 {
 	v2f o;
-	float4 oPos = mul(UNITY_MATRIX_MVP, v.vertex);
+	float4 oPos = UnityObjectToClipPos(v.vertex);
 	
-	float3 posWorld = mul(_Object2World, v.vertex).xyz;
+	float3 posWorld = mul(unity_ObjectToWorld, v.vertex).xyz;
 
 	//--------------------Gerstner waves-------------
 	half2 vtxForAni = posWorld.xz /_WaveScale; 		
@@ -176,7 +180,7 @@ v2f vert (appdata_t v)
 	#endif
 	
 	v.vertex.xyz += offsets;
-	o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+	o.vertex = UnityObjectToClipPos(v.vertex);
 	
 	#if UNITY_UV_STARTS_AT_TOP
 	float scale = -1.0;
@@ -193,7 +197,7 @@ v2f vert (appdata_t v)
 	o.uvgrab.zw = oPos.zw;
 	
 	
-	float3 normWorld = normalize(mul((float3x3)(_Object2World), v.normal).xyz);
+	float3 normWorld = normalize(mul((float3x3)(unity_ObjectToWorld), v.normal).xyz);
 
 	float3 I = normalize(posWorld - _WorldSpaceCameraPos.xyz);
 	float angle = dot(I, normWorld);
